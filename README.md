@@ -1,12 +1,18 @@
-<p align="center">
-  <img width="35%" src="https://github.com/cybersecurity-dev/cybersecurity-dev/blob/main/assets/Android.svg" />
-</p>
+<div align="center">
+    <p align="center">
+        <a href="https://developer.android.com/">
+          <img width="35%" src="https://github.com/cybersecurity-dev/cybersecurity-dev/blob/main/assets/Android.svg" />
+        </a>
+    </p>
 
-# [AET](https://developer.android.com/) | Event Tracing for Android
+# **`AET`** | Event Tracing for Android
+</div>
+
 [![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)]()
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)]()
 [![Reddit](https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white)]()
 
+AET is a tracing facility that allows a user to log events to a file (JSON, XML, CSV)
 <p align="center">
     <a href="https://github.com/cybersecurity-dev/"><img height="25" src="https://github.com/cybersecurity-dev/cybersecurity-dev/blob/main/assets/github.svg" alt="GitHub"></a>
     &nbsp;
@@ -16,7 +22,13 @@
     <img src="https://github.com/cybersecurity-dev/cybersecurity-dev/blob/main/assets/bar.gif">
 </p>
 
-AET is a tracing facility that allows a user to log events to a file (JSON, XML, CSV)
+
+## 📖 Contents
+- [My Awesome Lists](#my-awesome-lists)
+- [Contributing](#contributing)
+- [Contributors](#contributors)
+
+
 
 <details>
 
@@ -89,8 +101,8 @@ python3 setup.py install
 | `ion_heap_shrink`      | Memory allocator (ION) event for memory shrink                               | Memory allocator (Android-specific)     |
 | `vibrator_on/off`      | Vibration motor activation/deactivation                                      | Input/haptic feedback                   |
 
-### My Other Awesome Lists
-You can access the my other awesome lists [here](https://cyberthreatdefence.com/my_awesome_lists)
+### My Awesome Lists
+You can access the my awesome lists [here](https://cyberthreatdefence.com/my_awesome_lists)
 
 ### Contributing
 
