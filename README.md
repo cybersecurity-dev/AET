@@ -5,14 +5,44 @@
         </a>
     </p>
 
+```mermaid
+flowchart LR
+    A["Android Device<br/>Apps, System Services, Kernel"]
+    B["Event Collection<br/>Logcat, Perfetto, eBPF"]
+    C["Event Processing<br/>Parse, Normalize, Filter"]
+    D[("Event Storage")]
+    E["Security Analysis<br/>and Dashboard"]
+    F["Security Alerts"]
+
+    A -->|Generate events| B
+    B -->|Collect telemetry| C
+    C -->|Store events| D
+    D --> E
+    C -->|Detect suspicious activity| F
+    F --> E
+
+    classDef source fill:#DBEAFE,stroke:#2563EB,color:#172554
+    classDef collect fill:#EDE9FE,stroke:#7C3AED,color:#2E1065
+    classDef process fill:#FEF3C7,stroke:#D97706,color:#451A03
+    classDef storage fill:#DCFCE7,stroke:#16A34A,color:#052E16
+    classDef output fill:#FEE2E2,stroke:#DC2626,color:#450A0A
+
+    class A source
+    class B collect
+    class C process
+    class D storage
+    class E,F output
+```
+
 # **`AET`** | Event Tracing for Android
 </div>
+
+> AET is a tracing facility that allows a user to log events to a file (JSON, XML, CSV)
 
 [![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)]()
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)]()
 [![Reddit](https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white)]()
 
-AET is a tracing facility that allows a user to log events to a file (JSON, XML, CSV)
 <p align="center">
     <a href="https://github.com/cybersecurity-dev/"><img height="25" src="https://github.com/cybersecurity-dev/cybersecurity-dev/blob/main/assets/github.svg" alt="GitHub"></a>
     &nbsp;
@@ -22,13 +52,10 @@ AET is a tracing facility that allows a user to log events to a file (JSON, XML,
     <img src="https://github.com/cybersecurity-dev/cybersecurity-dev/blob/main/assets/bar.gif">
 </p>
 
-
 ## 📖 Contents
 - [My Awesome Lists](#my-awesome-lists)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
-
-
 
 <details>
 
