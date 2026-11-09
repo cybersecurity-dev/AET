@@ -6,6 +6,180 @@
     </p>
 
 ```mermaid
+flowchart TB
+    subgraph Sources["Android Event Sources"]
+        direction LR
+        APP["Application<br/>Activity"]
+        PROC["Process and Thread<br/>Activity"]
+        FILE["File-System<br/>Operations"]
+        NET["Network<br/>Connections"]
+        BINDER["Binder IPC<br/>Transactions"]
+        PERM["Permission and API<br/>Access"]
+        SENSOR["Sensor and Device<br/>Access"]
+        AUTH["Authentication and<br/>User Activity"]
+    end
+
+    subgraph Instrumentation["Tracing and Instrumentation Layer"]
+        direction LR
+        LOGCAT["Logcat"]
+        PERFETTO["Perfetto and<br/>Android Tracing"]
+        EBPF["eBPF Programs"]
+        TRACE["Kernel Tracepoints"]
+        KPROBE["Kprobes and<br/>Uprobes"]
+        AUDIT["Linux Audit<br/>Subsystem"]
+        HOOKS["Framework and<br/>API Hooks"]
+    end
+
+    subgraph Collection["Event Collection Layer"]
+        direction LR
+        ADB["ADB Log and Trace<br/>Collector"]
+        TRACED["Perfetto traced<br/>Service"]
+        BUFFER["eBPF Ring Buffer"]
+        AGENT["On-Device<br/>Monitoring Agent"]
+        QUEUE["Event Buffer<br/>and Queue"]
+    end
+
+    subgraph Processing["Event Processing and Enrichment"]
+        INGEST["Event Ingestion"]
+        PARSE["Parsing and<br/>Schema Mapping"]
+        NORMALIZE["Event Normalization"]
+        ENRICH["Context Enrichment<br/>UID, PID, package, hash"]
+        FILTER["Filtering and<br/>Aggregation"]
+        CORRELATE["Cross-Event<br/>Correlation"]
+        GRAPH["Behavior Graph<br/>Construction"]
+    end
+
+    subgraph Analysis["Malware Analysis and Detection"]
+        RULES["Rule-Based<br/>Detection"]
+        APIAN["Sensitive API<br/>Analysis"]
+        BEHAVIOR["Behavioral<br/>Detection"]
+        ML["Machine-Learning<br/>Model"]
+        GNN["Graph-Based or<br/>GNN Analysis"]
+        IOC["IOC and Signature<br/>Matching"]
+        ATTACK["MITRE ATT&CK<br/>Mobile Mapping"]
+        RISK["Application<br/>Risk Scoring"]
+    end
+
+    subgraph Storage["Storage Layer"]
+        RAW[("Raw Trace Archive")]
+        EVENTDB[("Normalized Event DB")]
+        SEARCH[("Search Index")]
+        GRAPHDB[("Behavior Graph DB")]
+        APKDB[("APK Metadata DB")]
+    end
+
+    subgraph Response["Alerting and Response"]
+        ALERT["Alert Generation"]
+        INVEST["Application<br/>Investigation"]
+        REPORT["Malware Analysis<br/>Report"]
+        BLOCK["Block or Disable<br/>Application"]
+        QUARANTINE["Quarantine APK"]
+        FORENSICS["Preserve Forensic<br/>Evidence"]
+    end
+
+    subgraph Presentation["Access and Integration"]
+        API["REST or gRPC API"]
+        DASH["Security Dashboard"]
+        TIMELINE["Event Timeline"]
+        GRAPHVIEW["Behavior Graph<br/>Visualization"]
+        SIEM["SIEM Integration"]
+        MTD["Mobile Threat Defense<br/>Integration"]
+    end
+
+    APP --> LOGCAT
+    APP --> HOOKS
+    PROC --> PERFETTO
+    PROC --> TRACE
+    FILE --> TRACE
+    FILE --> AUDIT
+    NET --> EBPF
+    NET --> AUDIT
+    BINDER --> PERFETTO
+    BINDER --> HOOKS
+    PERM --> HOOKS
+    SENSOR --> HOOKS
+    AUTH --> LOGCAT
+    AUTH --> AUDIT
+
+    LOGCAT --> ADB
+    PERFETTO --> TRACED
+    TRACE --> TRACED
+    EBPF --> BUFFER
+    KPROBE --> BUFFER
+    AUDIT --> AGENT
+    HOOKS --> AGENT
+
+    ADB --> QUEUE
+    TRACED --> QUEUE
+    BUFFER --> QUEUE
+    AGENT --> QUEUE
+    QUEUE --> INGEST
+
+    INGEST --> PARSE
+    PARSE --> NORMALIZE
+    NORMALIZE --> ENRICH
+    ENRICH --> FILTER
+    FILTER --> CORRELATE
+    CORRELATE --> GRAPH
+
+    PARSE --> RAW
+    ENRICH --> EVENTDB
+    CORRELATE --> SEARCH
+    GRAPH --> GRAPHDB
+    ENRICH --> APKDB
+
+    CORRELATE --> RULES
+    CORRELATE --> APIAN
+    CORRELATE --> BEHAVIOR
+    CORRELATE --> IOC
+    GRAPH --> ML
+    GRAPH --> GNN
+
+    RULES --> ATTACK
+    APIAN --> ATTACK
+    BEHAVIOR --> ATTACK
+    ML --> ATTACK
+    GNN --> ATTACK
+    IOC --> ATTACK
+    ATTACK --> RISK
+    RISK --> ALERT
+
+    ALERT --> INVEST
+    INVEST --> REPORT
+    ALERT --> BLOCK
+    ALERT --> QUARANTINE
+    ALERT --> FORENSICS
+
+    RAW --> API
+    EVENTDB --> API
+    SEARCH --> API
+    GRAPHDB --> API
+    APKDB --> API
+    ALERT --> API
+
+    API --> DASH
+    API --> TIMELINE
+    API --> GRAPHVIEW
+    API --> SIEM
+    API --> MTD
+
+    classDef source fill:#DBEAFE,stroke:#2563EB,color:#172554
+    classDef trace fill:#EDE9FE,stroke:#7C3AED,color:#2E1065
+    classDef collect fill:#D1FAE5,stroke:#059669,color:#064E3B
+    classDef process fill:#FEF3C7,stroke:#D97706,color:#451A03
+    classDef analysis fill:#FCE7F3,stroke:#DB2777,color:#500724
+    classDef storage fill:#E0F2FE,stroke:#0284C7,color:#082F49
+    classDef response fill:#FEE2E2,stroke:#DC2626,color:#450A0A
+    classDef presentation fill:#F3E8FF,stroke:#9333EA,color:#3B0764
+
+    class APP,PROC,FILE,NET,BINDER,PERM,SENSOR,AUTH source
+    class LOGCAT,PERFETTO,EBPF,TRACE,KPROBE,AUDIT,HOOKS trace
+    class ADB,TRACED,BUFFER,AGENT,QUEUE collect
+    class INGEST,PARSE,NORMALIZE,ENRICH,FILTER,CORRELATE,GRAPH process
+    class RULES,APIAN,BEHAVIOR,ML,GNN,IOC,ATTACK,RISK analysis
+    class RAW,EVENTDB,SEARCH,GRAPHDB,APKDB storage
+    class ALERT,INVEST,REPORT,BLOCK,QUARANTINE,FORENSICS response
+    class API,DASH,TIMELINE,GRAPHVIEW,SIEM,MTD presentation
 ```
 
 # **`AET`** | Event Tracing for Android
